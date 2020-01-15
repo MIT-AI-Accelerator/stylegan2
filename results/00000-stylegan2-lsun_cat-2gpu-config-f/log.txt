@@ -1,0 +1,87 @@
+dnnlib: Running training.training_loop.training_loop() on localhost...
+Streaming data using training.dataset.TFRecordDataset...
+Dataset shape = [3, 64, 64]
+Dynamic range = [0, 255]
+Label size    = 0
+Traceback (most recent call last):
+  File "/state/partition1/llgrid/pkg/anaconda/anaconda3-2019b/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1356, in _do_call
+    return fn(*args)
+  File "/state/partition1/llgrid/pkg/anaconda/anaconda3-2019b/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1341, in _run_fn
+    options, feed_dict, fetch_list, target_list, run_metadata)
+  File "/state/partition1/llgrid/pkg/anaconda/anaconda3-2019b/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1429, in _call_tf_sessionrun
+    run_metadata)
+tensorflow.python.framework.errors_impl.DataLossError: truncated record at 3714736937
+	 [[{{node Dataset_1/IteratorGetNext}}]]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "stylegan2/run_training.py", line 192, in <module>
+    main()
+  File "stylegan2/run_training.py", line 187, in main
+    run(**vars(args))
+  File "stylegan2/run_training.py", line 120, in run
+    dnnlib.submit_run(**kwargs)
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/dnnlib/submission/submit.py", line 343, in submit_run
+    return farm.submit(submit_config, host_run_dir)
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/dnnlib/submission/internal/local.py", line 22, in submit
+    return run_wrapper(submit_config)
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/dnnlib/submission/submit.py", line 280, in run_wrapper
+    run_func_obj(**submit_config.run_func_kwargs)
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/training/training_loop.py", line 142, in training_loop
+    grid_size, grid_reals, grid_labels = misc.setup_snapshot_image_grid(training_set, **grid_args)
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/training/misc.py", line 117, in setup_snapshot_image_grid
+    reals[:], labels[:] = training_set.get_minibatch_np(gw * gh)
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/training/dataset.py", line 144, in get_minibatch_np
+    return tflib.run(self._tf_minibatch_np)
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/dnnlib/tflib/tfutil.py", line 31, in run
+    return tf.get_default_session().run(*args, **kwargs)
+  File "/state/partition1/llgrid/pkg/anaconda/anaconda3-2019b/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 950, in run
+    run_metadata_ptr)
+  File "/state/partition1/llgrid/pkg/anaconda/anaconda3-2019b/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1173, in _run
+    feed_dict_tensor, options, run_metadata)
+  File "/state/partition1/llgrid/pkg/anaconda/anaconda3-2019b/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1350, in _do_run
+    run_metadata)
+  File "/state/partition1/llgrid/pkg/anaconda/anaconda3-2019b/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1370, in _do_call
+    raise type(e)(node_def, op, message)
+tensorflow.python.framework.errors_impl.DataLossError: truncated record at 3714736937
+	 [[node Dataset_1/IteratorGetNext (defined at /home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/training/dataset.py:136) ]]
+
+Errors may have originated from an input operation.
+Input Source operations connected to node Dataset_1/IteratorGetNext:
+ Dataset/IteratorV2 (defined at /home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/training/dataset.py:119)
+
+Original stack trace for 'Dataset_1/IteratorGetNext':
+  File "stylegan2/run_training.py", line 192, in <module>
+    main()
+  File "stylegan2/run_training.py", line 187, in main
+    run(**vars(args))
+  File "stylegan2/run_training.py", line 120, in run
+    dnnlib.submit_run(**kwargs)
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/dnnlib/submission/submit.py", line 343, in submit_run
+    return farm.submit(submit_config, host_run_dir)
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/dnnlib/submission/internal/local.py", line 22, in submit
+    return run_wrapper(submit_config)
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/dnnlib/submission/submit.py", line 280, in run_wrapper
+    run_func_obj(**submit_config.run_func_kwargs)
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/training/training_loop.py", line 142, in training_loop
+    grid_size, grid_reals, grid_labels = misc.setup_snapshot_image_grid(training_set, **grid_args)
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/training/misc.py", line 117, in setup_snapshot_image_grid
+    reals[:], labels[:] = training_set.get_minibatch_np(gw * gh)
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/training/dataset.py", line 143, in get_minibatch_np
+    self._tf_minibatch_np = self.get_minibatch_tf()
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/training/dataset.py", line 136, in get_minibatch_tf
+    return self._tf_iterator.get_next()
+  File "/state/partition1/llgrid/pkg/anaconda/anaconda3-2019b/lib/python3.6/site-packages/tensorflow/python/data/ops/iterator_ops.py", line 426, in get_next
+    output_shapes=self._structure._flat_shapes, name=name)
+  File "/state/partition1/llgrid/pkg/anaconda/anaconda3-2019b/lib/python3.6/site-packages/tensorflow/python/ops/gen_dataset_ops.py", line 1947, in iterator_get_next
+    output_shapes=output_shapes, name=name)
+  File "/state/partition1/llgrid/pkg/anaconda/anaconda3-2019b/lib/python3.6/site-packages/tensorflow/python/framework/op_def_library.py", line 788, in _apply_op_helper
+    op_def=op_def)
+  File "/state/partition1/llgrid/pkg/anaconda/anaconda3-2019b/lib/python3.6/site-packages/tensorflow/python/util/deprecation.py", line 507, in new_func
+    return func(*args, **kwargs)
+  File "/state/partition1/llgrid/pkg/anaconda/anaconda3-2019b/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 3616, in create_op
+    op_def=op_def)
+  File "/state/partition1/llgrid/pkg/anaconda/anaconda3-2019b/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 2005, in __init__
+    self._traceback = tf_stack.extract_stack()
+

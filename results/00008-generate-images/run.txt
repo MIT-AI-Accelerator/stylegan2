@@ -1,0 +1,1 @@
+{'host_name': 'localhost', 'start_time': '2020-01-13 15:15:12.570153', 'stop_time': '2020-01-13 15:15:12.573401', 'task_name': 'ES26698-00008-generate-images'}

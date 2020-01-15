@@ -1,0 +1,42 @@
+dnnlib: Running run_generator.generate_images() on localhost...
+Loading networks from "/home/gridsan/ES26698/TXE_supercloud/ewolf/data/stylegan2/networks/stylegan2-cat-config-f_dwld.pkl"...
+Setting up TensorFlow plugin "fused_bias_act.cu": Preprocessing... Failed!
+Traceback (most recent call last):
+  File "stylegan2/run_generator.py", line 168, in <module>
+    main()
+  File "stylegan2/run_generator.py", line 163, in main
+    dnnlib.submit_run(sc, func_name_map[subcmd], **kwargs)
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/dnnlib/submission/submit.py", line 343, in submit_run
+    return farm.submit(submit_config, host_run_dir)
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/dnnlib/submission/internal/local.py", line 22, in submit
+    return run_wrapper(submit_config)
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/dnnlib/submission/submit.py", line 280, in run_wrapper
+    run_func_obj(**submit_config.run_func_kwargs)
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/run_generator.py", line 21, in generate_images
+    _G, _D, Gs = pretrained_networks.load_networks(network_pkl)
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/pretrained_networks.py", line 76, in load_networks
+    G, D, Gs = pickle.load(stream, encoding='latin1')
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/dnnlib/tflib/network.py", line 297, in __setstate__
+    self._init_graph()
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/dnnlib/tflib/network.py", line 154, in _init_graph
+    out_expr = self._build_func(*self.input_templates, **build_kwargs)
+  File "<string>", line 491, in G_synthesis_stylegan2
+  File "<string>", line 455, in layer
+  File "<string>", line 99, in modulated_conv2d_layer
+  File "<string>", line 68, in apply_bias_act
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/dnnlib/tflib/ops/fused_bias_act.py", line 68, in fused_bias_act
+    return impl_dict[impl](x=x, b=b, axis=axis, act=act, alpha=alpha, gain=gain)
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/dnnlib/tflib/ops/fused_bias_act.py", line 122, in _fused_bias_act_cuda
+    cuda_kernel = _get_plugin().fused_bias_act
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/dnnlib/tflib/ops/fused_bias_act.py", line 16, in _get_plugin
+    return custom_ops.get_plugin(os.path.splitext(__file__)[0] + '.cu')
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/dnnlib/tflib/custom_ops.py", line 111, in get_plugin
+    _run_cmd(_prepare_nvcc_cli('"%s" --preprocess -o "%s" --keep --keep-dir "%s"' % (cuda_file, tmp_file, tmp_dir)))
+  File "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/dnnlib/tflib/custom_ops.py", line 61, in _run_cmd
+    raise RuntimeError('NVCC returned an error. See below for full command line and output log:\n\n%s\n\n%s' % (cmd, output))
+RuntimeError: NVCC returned an error. See below for full command line and output log:
+
+nvcc "/home/gridsan/ES26698/TXE_supercloud/ewolf/stylegan2/dnnlib/tflib/ops/fused_bias_act.cu" --preprocess -o "/state/partition1/slurm_tmp/63885040.4294967294.0/tmp5b3d3f2k/fused_bias_act_tmp.cu" --keep --keep-dir "/state/partition1/slurm_tmp/63885040.4294967294.0/tmp5b3d3f2k" --disable-warnings --include-path "/state/partition1/llgrid/pkg/anaconda/anaconda3-2019b/lib/python3.6/site-packages/tensorflow/include" --include-path "/state/partition1/llgrid/pkg/anaconda/anaconda3-2019b/lib/python3.6/site-packages/tensorflow/include/external/protobuf_archive/src" --include-path "/state/partition1/llgrid/pkg/anaconda/anaconda3-2019b/lib/python3.6/site-packages/tensorflow/include/external/com_google_absl" --include-path "/state/partition1/llgrid/pkg/anaconda/anaconda3-2019b/lib/python3.6/site-packages/tensorflow/include/external/eigen_archive" 2>&1
+
+/bin/sh: nvcc: command not found
+
